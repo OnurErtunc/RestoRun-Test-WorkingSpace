@@ -32,7 +32,7 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "table_id")
-    private Table diningTable; // Assuming a DiningTable class exists
+    private DiningTable diningTable; // Assuming a DiningTable class exists
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "kitchen_id")

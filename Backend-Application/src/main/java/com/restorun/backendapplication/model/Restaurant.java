@@ -7,55 +7,98 @@ import lombok.Setter;
 import java.util.HashSet;
 import java.util.Set;
 
+@Setter
+@Getter
 @Entity
 public class Restaurant {
 
-    @Getter
-    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Setter
-    @Getter
     @Column(nullable = false)
     private String name;
 
-    @Setter
-    @Getter
     @Column(nullable = false)
     private String address;
 
-    @Setter
-    @Getter
+    @Column(nullable = false)
+    private String email;
+
     @Column(nullable = false)
     private String phoneNumber;
 
-    @Setter
-    @Getter
+    @OneToOne(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Menu menu;
+
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Manager> managers = new HashSet<>();
+
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Employee> employees = new HashSet<>();
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Event> events = new HashSet<>();
 
+    // TODO: annotation transient will be changed
+    @Setter
+    @Getter
+    @Transient
+    private String occupancy;
+
     // Constructors, getters, setters, and other methods
-    public void addEmployee(Employee employee) {
-        employees.add(employee);
-        employee.setRestaurant(this);
+    public boolean addEmployee(Employee employee) {
+        try{
+            employees.add(employee);
+            employee.setRestaurant(this);
+            return true;
+        }
+        catch (Exception e){
+            // throw new IllegalAccessException();
+            return false;
+        }
     }
-    public void removeEmployee(Employee employee) {
-        employees.remove(employee);
-        employee.setRestaurant(null);
+    public boolean removeEmployee(Employee employee) {
+        try{
+            employees.remove(employee);
+            employee.setRestaurant(null);
+            return true;
+        }
+        catch (Exception e){
+            // throw new IllegalAccessException();
+            return false;
+        }
     }
     public void addEvent(Event event) {
         events.add(event);
         event.setRestaurant(this);
     }
-
     public void removeEvent(Event event) {
         events.remove(event);
         event.setRestaurant(null);
+    }
+
+    public boolean addItemToMenu(MenuItem item) {
+        try{
+            menu.addItem(item);
+            return true;
+        }
+        catch (Exception e){
+            // throw new IllegalAccessException();
+            return false;
+        }
+    }
+
+    public boolean removeItemFromMenu(MenuItem item) {
+        boolean bool;
+        try{
+            bool = menu.removeItem(item);
+            return bool;
+        }
+        catch (Exception e){
+            // throw new IllegalAccessException();
+            return false;
+        }
     }
 
     // Constructors

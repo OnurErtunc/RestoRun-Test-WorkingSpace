@@ -25,15 +25,33 @@ public class Menu {
     @Column
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
     @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<MenuItem> menuItems = new HashSet<>();
 
-    public void addMenuItem(MenuItem menuItem) {
-        menuItems.add(menuItem);
-        menuItem.setMenu(this);
+    public boolean addItem(MenuItem menuItem) {
+        try{
+            menuItems.add(menuItem);
+            menuItem.setMenu(this);
+            return true;
+        }
+        catch (Exception e){
+            // throw new IllegalAccessException();
+            return false;
+        }
+    }
+    public boolean removeItem(MenuItem menuItem) {
+        try{
+            menuItems.remove(menuItem);
+            menuItem.setMenu(null);
+            return true;
+        }
+        catch (Exception e){
+            // throw new IllegalAccessException();
+            return false;
+        }
     }
 }
