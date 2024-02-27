@@ -32,6 +32,14 @@ public class Menu {
     @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<MenuItem> menuItems = new HashSet<>();
 
+    public Menu(Long id, String name, String description, Restaurant restaurant, Set<MenuItem> menuItems) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.restaurant = restaurant;
+        this.menuItems = menuItems;
+    }
+
     public boolean addItem(MenuItem menuItem) {
         try{
             menuItems.add(menuItem);

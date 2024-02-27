@@ -1,5 +1,6 @@
 package com.restorun.backendapplication.model;
 
+import com.restorun.backendapplication.enums.PaymentStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,7 +29,7 @@ public class Order {
     private Double totalPrice;
 
     @Enumerated(EnumType.STRING)
-    private String status; // "ready", "pending", "etc..."
+    private PaymentStatus status; // "ready", "pending", "etc..."
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "table_id")
@@ -38,5 +39,13 @@ public class Order {
     @JoinColumn(name = "kitchen_id")
     private Kitchen kitchen; // Link to the Kitchen handling the order
 
-    // Constructors, getters, setters, and other methods are handled by Lombok
+    public Order(Long id, List<Meal> meals, Double totalPrice, PaymentStatus status, DiningTable diningTable, Kitchen kitchen) {
+        this.id = id;
+        this.meals = meals;
+        this.totalPrice = totalPrice;
+        this.status = status;
+        this.diningTable = diningTable;
+        this.kitchen = kitchen;
+    }
+// Constructors, getters, setters, and other methods are handled by Lombok
 }
