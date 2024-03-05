@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
+@Table(name = "employee")
 public class Employee extends User{
 
     // Employee specific fields

@@ -6,7 +6,6 @@ import lombok.Setter;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "manager")
 @Getter
 @Setter
 public class Manager extends Employee { // Assuming Manager extends from Employee
@@ -20,6 +19,7 @@ public class Manager extends Employee { // Assuming Manager extends from Employe
         this.role = Role.MANAGER;
     }
 
+    /*
     public boolean addEmployee(Employee employee){
         try{
             return restaurant.addEmployee(employee);
@@ -116,6 +116,8 @@ public class Manager extends Employee { // Assuming Manager extends from Employe
         }
         return occupancy;
     }
+
+    */
 
     // Constructors, getters, and setters are managed by Lombok annotations
 }

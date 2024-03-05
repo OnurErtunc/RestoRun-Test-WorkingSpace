@@ -4,8 +4,10 @@ import com.restorun.backendapplication.enums.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "admin")
 public class Admin extends User {
 
     // Admin specific fields

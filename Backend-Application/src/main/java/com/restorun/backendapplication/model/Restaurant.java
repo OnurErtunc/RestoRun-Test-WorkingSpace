@@ -47,6 +47,8 @@ public class Restaurant {
     private String occupancy;
 
     // Constructors, getters, setters, and other methods
+
+    /*
     public boolean addEmployee(Employee employee) {
         try{
             employees.add(employee);
@@ -100,6 +102,7 @@ public class Restaurant {
             return false;
         }
     }
+    */
 
     // Constructors
     // Parameterized constructor
