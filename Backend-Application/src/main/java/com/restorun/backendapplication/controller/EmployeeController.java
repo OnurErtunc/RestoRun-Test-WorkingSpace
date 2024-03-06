@@ -2,7 +2,6 @@ package com.restorun.backendapplication.controller;
 
 import com.restorun.backendapplication.model.Employee;
 import com.restorun.backendapplication.service.EmployeeService;
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +9,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/employee")
-@Api(tags = "Employee Controller")
+
 public class EmployeeController {
 
     private final EmployeeService employeeService;

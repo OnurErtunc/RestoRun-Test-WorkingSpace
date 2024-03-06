@@ -1,8 +1,10 @@
 package com.restorun.backendapplication.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.restorun.backendapplication.model.Bill;
 import com.restorun.backendapplication.service.BillService;
-import io.swagger.annotations.Api;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +14,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/bill")
-@Api(tags = "Bill Controller")
 public class BillController {
 
     private final BillService billService;
@@ -36,20 +37,22 @@ public class BillController {
 
     }
 
-    /*
     @PostMapping("/saveBill")
-    public ResponseEntity<String> saveBill(@RequestBody Bill billRequest) {
-        Bill bill = new Bill(billRequest.getTotalAmount(), billRequest.getTip(), billRequest.getTax(), PaymentStatus.valueOf(billRequest.getStatus()));
-        boolean saved = billService.saveBill(bill);
+    public ResponseEntity<String> saveBill(@RequestBody String bill) throws JsonProcessingException {
+
+        ObjectMapper mapper = new ObjectMapper();
+        Bill billObj = mapper.readValue(bill, Bill.class);
+
+        boolean saved = billService.saveBill(billObj);
+
         if (!saved) {
             return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok("Bill saved successfully");
+
+        return ResponseEntity.ok("Bill " + billObj.toJSON() + " saved successfully");
     }
 
-     */
-
-    @GetMapping("/deleteBill")
+    @DeleteMapping("/deleteBill")
     public ResponseEntity<String> deleteBill(@RequestBody Long id) {
 
         Optional<Bill> bill = billService.retrieveBillById(id);

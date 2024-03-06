@@ -1,20 +1,18 @@
 package com.restorun.backendapplication.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.restorun.backendapplication.model.Admin;
 import com.restorun.backendapplication.service.AdminService;
-import io.swagger.annotations.Api;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/admin")
-@Api(tags = "Admin Controller")
 public class AdminController {
 
     private final AdminService adminService;
@@ -24,6 +22,10 @@ public class AdminController {
         this.adminService = adminService;
     }
 
+    /**
+     *
+     * @return
+     */
     @GetMapping("/retrieveAllAdmins")
     public ResponseEntity<List<Admin>> retrieveAllAdmins() {
         List<Admin> admins = adminService.retrieveAllAdmins();
@@ -33,30 +35,47 @@ public class AdminController {
         return ResponseEntity.ok(admins);
     }
 
+    // method infos needs to be fixed. not working as a controller.
     @GetMapping("/retrieveAdminById")
-    public ResponseEntity<Admin> retrieveAdminById(@RequestBody Long id) {
-        Admin admin = adminService.retrieveAdminById(id);
-        if (admin == null) {
+    public ResponseEntity<Admin> retrieveAdminById(@RequestBody String admin) throws JsonProcessingException {
+
+        ObjectMapper mapper = new ObjectMapper();
+        Admin adminObj = mapper.readValue(admin, Admin.class);
+
+        Admin dbResponse = adminService.retrieveAdminById(adminObj.getUserId());
+
+        if (dbResponse == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(admin);
+        return ResponseEntity.ok(dbResponse);
     }
 
-    @GetMapping("/deleteAdmin")
-    public ResponseEntity<String> deleteAdmin(@RequestBody Long id) {
-        boolean deleted = adminService.deleteAdmin(id);
+    @DeleteMapping("/deleteAdmin")
+    public ResponseEntity<String> deleteAdmin(@RequestBody String id) {
+        boolean deleted = adminService.deleteAdmin(Long.valueOf(id));
         if (!deleted) {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok("Admin deleted successfully");
     }
 
-    @GetMapping("/saveAdmin")
-    public ResponseEntity<String> saveAdmin(Admin admin) {
-        boolean saved = adminService.saveAdmin(admin);
+    /**
+     *
+     * @param admin
+     * @return
+     * @throws JsonProcessingException
+     */
+    @PostMapping("/saveAdmin")
+    public ResponseEntity<String> saveAdmin(@RequestBody String admin ) throws JsonProcessingException {
+
+        ObjectMapper mapper = new ObjectMapper();
+        Admin adminObj = mapper.readValue(admin, Admin.class);
+
+        boolean saved = adminService.saveAdmin(adminObj);
         if (!saved) {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok("Admin saved successfully");
+
     }
 }

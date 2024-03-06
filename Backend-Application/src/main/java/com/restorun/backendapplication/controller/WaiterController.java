@@ -3,7 +3,6 @@ package com.restorun.backendapplication.controller;
 
 import com.restorun.backendapplication.model.Waiter;
 import com.restorun.backendapplication.service.WaiterService;
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/waiter")
-@Api(tags = "Waiter Controller")
+
 public class WaiterController {
 
 

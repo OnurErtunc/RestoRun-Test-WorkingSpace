@@ -20,13 +20,5 @@ public class BackendApplication {
         SpringApplication.run(BackendApplication.class, args);
     }
 
-    @GetMapping
-    public Order test(){
-        Restaurant restaurant = new Restaurant();
-        Set<MenuItem> menuItems = new HashSet<>();
-        Menu menu = new Menu(1L, "debug_menu", "descmenu", restaurant, menuItems);
-        List<Meal> meals = new ArrayList<Meal>();
-        meals.add(new Meal(1L, "pizza", "nice", 15.0, menu));
-        return new Order(1L, meals, 20.0, PaymentStatus.PAID , new DiningTable(), new Kitchen());
-    }
+
 }
