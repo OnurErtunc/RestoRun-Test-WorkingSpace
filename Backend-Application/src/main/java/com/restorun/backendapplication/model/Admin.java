@@ -1,6 +1,7 @@
 package com.restorun.backendapplication.model;
 
 import com.restorun.backendapplication.enums.Role;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -8,6 +9,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "admin")
+@Hidden
 public class Admin extends User {
 
     // Admin specific fields
