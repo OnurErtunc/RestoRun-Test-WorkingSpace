@@ -65,8 +65,8 @@ public class AdminController {
      * @return
      * @throws JsonProcessingException
      */
-    @PostMapping("/saveAdmin")
-    public ResponseEntity<String> saveAdmin(@RequestBody String admin ) throws JsonProcessingException {
+    @PostMapping("/addAdmin")
+    public ResponseEntity<String> addAdmin(@RequestBody String admin ) throws JsonProcessingException {
 
         ObjectMapper mapper = new ObjectMapper();
         Admin adminObj = mapper.readValue(admin, Admin.class);
