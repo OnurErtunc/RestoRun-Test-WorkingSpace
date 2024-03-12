@@ -1,9 +1,7 @@
 package com.restorun.backendapplication.model;
 
 import com.restorun.backendapplication.enums.Role;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 
 @Entity
@@ -11,6 +9,10 @@ public class Chef extends Employee {
 
     @Column
     private String password;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id")
+    public Restaurant restaurant;
 
     public Chef() {
         super();
@@ -66,6 +68,14 @@ public class Chef extends Employee {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Restaurant getRestaurant(){
+        return this.restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant){
+        this.restaurant = restaurant;
     }
 
     @Override

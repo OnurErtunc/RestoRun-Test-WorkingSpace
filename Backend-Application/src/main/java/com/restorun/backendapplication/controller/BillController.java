@@ -15,7 +15,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/bill")
 public class BillController {
-
     private final BillService billService;
 
     // Autowire might be unnecessary.
@@ -24,16 +23,11 @@ public class BillController {
         this.billService = billService;
     }
 
-
-
     @GetMapping("/retrieveBillById")
     public ResponseEntity<Bill> retrieveBillById(@RequestBody Long id) {
 
         Optional<Bill> bill = billService.retrieveBillById(id);
-        if (bill.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(bill.get());
+        return bill.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 
     }
 
@@ -79,6 +73,4 @@ public class BillController {
         return ResponseEntity.ok(bills);
 
     }
-
-
 }

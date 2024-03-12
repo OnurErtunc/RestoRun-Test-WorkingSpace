@@ -23,10 +23,7 @@ public class ChefController {
     @GetMapping("/retrieveChefById")
     public ResponseEntity<Chef> retrieveChefById(@RequestBody Long id) {
         Optional<Chef> chef = Optional.ofNullable(chefService.retrieveChefById(id));
-        if (chef.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(chef.get());
+        return chef.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/deleteChef")

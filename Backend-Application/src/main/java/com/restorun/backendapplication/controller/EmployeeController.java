@@ -22,10 +22,7 @@ public class EmployeeController {
     @GetMapping("/retrieveEmployeeById")
     public ResponseEntity<Employee> retrieveEmployeeById(@RequestBody Long id) {
         Optional<Employee> employee = Optional.ofNullable(employeeService.retrieveEmployeeById(id));
-        if (employee.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(employee.get());
+        return employee.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/deleteEmployee")

@@ -29,6 +29,7 @@ public class EventService {
         return true;
     }
 
+    //updateEvent in model??
     @Transactional
     public boolean updateEvent(Event event) {
         return eventRepository.findById(event.getId())

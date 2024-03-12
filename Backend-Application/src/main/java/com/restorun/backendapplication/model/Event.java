@@ -46,14 +46,12 @@ public class Event {
         this.restaurant = restaurant;
     }
 
-    public boolean updateEvent(Event event) {
+    public void updateEvent(Event event) {
         this.title = event.getTitle();
         this.description = event.getDescription();
         this.endTime = event.getEndTime();
         this.startTime = event.getStartTime();
         this.restaurant = event.getRestaurant();
-
-        return true;
     }
 
     @Override

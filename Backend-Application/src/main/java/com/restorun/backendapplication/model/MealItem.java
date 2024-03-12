@@ -22,9 +22,6 @@ public class MealItem {
     @Column(nullable = false)
     private Double price;
 
-    @Column(length = 1024) // Assuming there might be a lengthy description
+    @Column(length = 1024)
     private String description;
-
-    // Assuming the existence of a Meal class that has a many-to-many relationship with MealItem
-    // The relationship would typically be defined in the Meal class
 }

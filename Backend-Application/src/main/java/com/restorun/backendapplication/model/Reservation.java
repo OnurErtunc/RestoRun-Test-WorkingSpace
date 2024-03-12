@@ -25,7 +25,7 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer; // Assuming a Customer class exists
+    private Customer customer;
 
     @Column(nullable = false)
     private LocalDateTime reservationTime;

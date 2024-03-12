@@ -13,7 +13,6 @@ import java.util.Optional;
 @RequestMapping("/api/customer")
 
 public class CustomerController {
-
     private final CustomerService customerService;
 
     @Autowired
@@ -24,10 +23,7 @@ public class CustomerController {
     @GetMapping("retrieveCustomerById")
     public ResponseEntity<Customer> retrieveCustomerById(@RequestBody Long id) {
         Optional<Customer> customer = Optional.ofNullable(customerService.retrieveCustomerById(id));
-        if (customer.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(customer.get());
+        return customer.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("deleteCustomer")

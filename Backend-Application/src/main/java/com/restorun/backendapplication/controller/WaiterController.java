@@ -13,8 +13,6 @@ import java.util.Optional;
 @RequestMapping("/api/waiter")
 
 public class WaiterController {
-
-
     private final WaiterService waiterService;
 
     @Autowired
