@@ -2,7 +2,6 @@ package com.restorun.backendapplication.controller;
 
 import com.restorun.backendapplication.model.Employee;
 import com.restorun.backendapplication.service.EmployeeService;
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +9,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/employee")
-@Api(tags = "Employee Controller")
+
 public class EmployeeController {
 
     private final EmployeeService employeeService;
@@ -23,10 +22,7 @@ public class EmployeeController {
     @GetMapping("/retrieveEmployeeById")
     public ResponseEntity<Employee> retrieveEmployeeById(@RequestBody Long id) {
         Optional<Employee> employee = Optional.ofNullable(employeeService.retrieveEmployeeById(id));
-        if (employee.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(employee.get());
+        return employee.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/deleteEmployee")

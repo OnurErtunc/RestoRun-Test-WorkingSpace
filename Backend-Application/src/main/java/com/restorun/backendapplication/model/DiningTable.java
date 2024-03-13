@@ -25,8 +25,12 @@ public class DiningTable {
     @Column(nullable = false)
     private Integer seatingCapacity;
 
-    @OneToMany(mappedBy = "dining_table", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Reservation> reservations = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "reservation_id", nullable = false)
+    private Reservation reservation;
 
-    // Assuming a Reservation class exists and has a many-to-one relationship with DiningTable
+    // TODO
+    public DiningTable(long id, int tableNumber, int seatingCapacity, Set<Reservation> reservations){
+
+    }
 }

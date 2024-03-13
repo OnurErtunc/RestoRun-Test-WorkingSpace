@@ -25,7 +25,14 @@ public class Meal {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_id")
-    private Menu menu; // Assuming a Menu class exists
+    private Menu menu;
 
-    // Constructors, getters, setters, and other methods are handled by Lombok
+    public Meal(Long id, String name, String description, Double price, Menu menu) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.menu = menu;
+    }
+// Constructors, getters, setters, and other methods are handled by Lombok
 }

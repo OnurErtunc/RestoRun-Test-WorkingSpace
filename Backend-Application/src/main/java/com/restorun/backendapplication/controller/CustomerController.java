@@ -2,7 +2,7 @@ package com.restorun.backendapplication.controller;
 
 import com.restorun.backendapplication.model.Customer;
 import com.restorun.backendapplication.service.CustomerService;
-import io.swagger.annotations.Api;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,9 +11,8 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/customer")
-@Api(tags = "Customer Controller")
-public class CustomerController {
 
+public class CustomerController {
     private final CustomerService customerService;
 
     @Autowired
@@ -24,10 +23,7 @@ public class CustomerController {
     @GetMapping("retrieveCustomerById")
     public ResponseEntity<Customer> retrieveCustomerById(@RequestBody Long id) {
         Optional<Customer> customer = Optional.ofNullable(customerService.retrieveCustomerById(id));
-        if (customer.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(customer.get());
+        return customer.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("deleteCustomer")

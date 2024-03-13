@@ -2,7 +2,6 @@ package com.restorun.backendapplication.controller;
 
 import com.restorun.backendapplication.model.Chef;
 import com.restorun.backendapplication.service.ChefService;
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/chef")
-@Api(tags = "Chef Controller")
+
 public class ChefController {
 
     private final ChefService chefService;
@@ -24,10 +23,7 @@ public class ChefController {
     @GetMapping("/retrieveChefById")
     public ResponseEntity<Chef> retrieveChefById(@RequestBody Long id) {
         Optional<Chef> chef = Optional.ofNullable(chefService.retrieveChefById(id));
-        if (chef.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(chef.get());
+        return chef.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/deleteChef")

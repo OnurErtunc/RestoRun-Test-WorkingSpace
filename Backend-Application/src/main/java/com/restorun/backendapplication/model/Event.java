@@ -1,11 +1,15 @@
 package com.restorun.backendapplication.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@Setter
+@Table(name = "event")
 public class Event {
 
     @Id
@@ -40,6 +44,14 @@ public class Event {
         this.startTime = startTime;
         this.endTime = endTime;
         this.restaurant = restaurant;
+    }
+
+    public void updateEvent(Event event) {
+        this.title = event.getTitle();
+        this.description = event.getDescription();
+        this.endTime = event.getEndTime();
+        this.startTime = event.getStartTime();
+        this.restaurant = event.getRestaurant();
     }
 
     @Override
