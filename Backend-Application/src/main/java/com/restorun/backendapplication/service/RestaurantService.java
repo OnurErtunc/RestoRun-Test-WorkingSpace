@@ -29,13 +29,15 @@ public class RestaurantService {
         return true;
     }
 
-    public boolean deleteRestaurant(Optional<Restaurant> restaurant) {
-        if (restaurant.isPresent()){
+    public boolean deleteRestaurant(Long id) {
+        Optional<Restaurant> restaurant = restaurantRepository.findById(id);
+        if (restaurant.isPresent()) {
             restaurantRepository.delete(restaurant.get());
-            return true;
+            return true;  // Successfully deleted
         }
-        return true;
+        return false;  // No restaurant found to delete
     }
+
 
     public List<Restaurant> retrieveAllRestaurants() {
         return restaurantRepository.findAll();
