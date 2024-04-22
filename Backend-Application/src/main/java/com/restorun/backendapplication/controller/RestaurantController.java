@@ -29,6 +29,7 @@ public class RestaurantController {
         this.objectMapper = objectMapper;
     }
 
+    //@TODO ADD {ID} TO THE END OF API
     @GetMapping("/retrieveRestaurantById")
     public ResponseEntity<Restaurant> retrieveRestaurantById(@RequestBody Long id) {
         Optional<Restaurant> restaurant = restaurantService.retrieveRestaurantById(id);

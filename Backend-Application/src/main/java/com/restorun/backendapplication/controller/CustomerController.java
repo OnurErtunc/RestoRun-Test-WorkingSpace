@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.restorun.backendapplication.model.Customer;
+import com.restorun.backendapplication.model.Restaurant;
 import com.restorun.backendapplication.service.CustomerService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -57,6 +59,15 @@ public class CustomerController {
         } else {
             return ResponseEntity.badRequest().body("{\"error\": \"Failed to delete customer\"}");
         }
+    }
+
+    @GetMapping("/retrieveAllCustomers")
+    public ResponseEntity<List<Customer>> retrieveAllCustomers() {
+        List<Customer> customers = customerService.retrieveAllCustomers();
+        if (customers.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(customers);
     }
 
     /*@GetMapping("retrieveCustomerByEmail")

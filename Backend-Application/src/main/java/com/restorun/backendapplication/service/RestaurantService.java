@@ -19,7 +19,6 @@ public class RestaurantService {
         this.restaurantRepository = restaurantRepository;
     }
 
-    @Transactional(readOnly = true)
     public Optional<Restaurant> retrieveRestaurantById(Long id) {
         return restaurantRepository.findById(id);
     }
