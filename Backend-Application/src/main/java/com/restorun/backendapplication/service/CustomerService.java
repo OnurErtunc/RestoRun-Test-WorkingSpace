@@ -31,6 +31,10 @@ public class CustomerService {
         return customerRepository.findById(id).orElse(null);
     }
 
+    /*public Customer retrieveCustomerByEmail(String email) {
+        return customerRepository.retrieveCustomerByEmail(email);
+    }*/
+
     // planned business logic
     /*
     make reservation

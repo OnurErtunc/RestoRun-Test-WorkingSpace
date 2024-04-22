@@ -33,13 +33,11 @@ public class RestaurantController {
     public ResponseEntity<Restaurant> retrieveRestaurantById(@RequestBody Long id) {
         Optional<Restaurant> restaurant = restaurantService.retrieveRestaurantById(id);
         return restaurant.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-
     }
 
     @PostMapping("/saveRestaurant")
     @Operation(summary = "Save a restaurant", description = "Saves a new restaurant or updates an existing restaurant based on the provided details")
-    public ResponseEntity<String> saveRestaurant(
-            @RequestBody JsonNode restaurantJson) {
+    public ResponseEntity<String> saveRestaurant(@RequestBody JsonNode restaurantJson) {
         // Convert JsonNode to Restaurant object
         Restaurant restaurant;
         try {
@@ -68,8 +66,6 @@ public class RestaurantController {
         }
         return ResponseEntity.ok("Restaurant deleted successfully");  // Confirm successful deletion
     }
-
-
 
     // return all restaurants in the system
     @GetMapping("/retrieveAllRestaurants")
