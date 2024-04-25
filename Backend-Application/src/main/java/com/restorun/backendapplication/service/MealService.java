@@ -55,6 +55,8 @@ public class MealService {
                     existingMeal.setMenu(meal.getMenu());
                     existingMeal.setName(meal.getName());
                     existingMeal.setPrice(meal.getPrice());
+                    existingMeal.setCategory(meal.getCategory());
+                    existingMeal.setRating(meal.getRating());
                     mealRepository.save(existingMeal);
                     return true; // Indicates success
                 })
